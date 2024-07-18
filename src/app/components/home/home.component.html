@@ -1,0 +1,51 @@
+<div class="container mt-5">
+    <button class="btn btn-success" (click)="addForm()">Add Form</button>&nbsp;
+    <button class="btn btn-success" (click)="saveAll()">Save All</button>
+
+</div>
+
+<div class="container mt-5">
+    <div *ngFor="let form of forms; let i = index" class="card mb-3">
+        <h2>Login</h2>
+        <form [formGroup]="form" (ngSubmit)="onSubmit(i)">
+
+            <input type="text" formControlName="username" placeholder="Name" required>
+            <div *ngIf="form.controls['username'].errors?.['required'] && (form.controls['username'].dirty || form.controls['username'].touched)"
+                class="text-danger">
+                Name is required.
+            </div>
+
+            <input type="email" formControlName="email" placeholder="Email">
+            <div *ngIf="form.controls['email'].errors?.['required'] && (form.controls['email'].dirty || form.controls['email'].touched)"
+                class="text-danger">
+                Email Field is required
+            </div>
+            <div *ngIf="form.controls['email'].errors?.['pattern'] && (form.controls['email'].dirty || form.controls['email'].touched)"
+                class="text-danger">
+                Email must follow a valid pattern.
+            </div>
+
+            <input type="number" formControlName="phone" placeholder="Phone no" maxlength="10" class="no-spinners">
+            <div *ngIf="form.controls['phone'].errors?.['required'] && (form.controls['phone'].dirty || form.controls['phone'].touched)"
+                class="text-danger">
+                Phone number is required.
+            </div>
+            <div *ngIf="form.controls['phone'].errors?.['pattern'] && (form.controls['phone'].dirty || form.controls['phone'].touched)"
+                class="text-danger">
+                Phone number must be exactly 10 digits.
+            </div>
+
+            <input type="number" formControlName="age" placeholder="Age" class="no-spinners">
+            <div *ngIf="form.controls['age'].errors?.['required'] && (form.controls['age'].dirty || form.controls['age'].touched)"
+                class="text-danger">
+                Age is required.
+            </div>
+            <div *ngIf="form.controls['age'].errors?.['min'] && (form.controls['age'].dirty || form.controls['age'].touched)"
+                class="text-danger">
+                Age must be greater than 20.
+            </div>
+
+            <button type="submit">Submit</button>
+        </form>
+    </div>
+</div>
